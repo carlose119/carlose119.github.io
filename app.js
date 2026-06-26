@@ -10,8 +10,8 @@
 
   /* ── Module Constants ────────────────────────────────────────────────── */
 
-  const GH_API = 'https://api.github.com/users/carlose119/repos?sort=updated&per_page=10';
-  const CACHE_KEY = 'gh_repos';
+  const GH_API = 'https://api.github.com/users/carlose119/repos?sort=updated&per_page=30';
+  const CACHE_KEY = 'gh_repos_v2';
   const CACHE_TTL = 3600000; // 1 hour in ms
   const LANG_COLORS = {
     JavaScript: '#f1e05a',
@@ -62,16 +62,16 @@
     });
   }
 
-  /* ── GitHub API Fetch ────────────────────────────────────────────────── */
+  /* ── GitHub API Fetch — Carousel ─────────────────────────────────────── */
 
   /**
-   * @description Fetches top GitHub repos, caches in sessionStorage for 1 hour,
-   * and renders them as cards inside `#github-repos`.
+   * @description Fetches ALL public GitHub repos, caches in sessionStorage for 1 hour,
+   * and renders them as cards inside the carousel track.
    * Shows a spinner while loading and an error message on failure.
    */
   async function fetchRepos() {
-    const container = document.getElementById('github-repos');
-    if (!container) return;
+    const track = document.getElementById('github-repos');
+    if (!track) return;
 
     // Check cache first
     try {
@@ -79,7 +79,7 @@
       if (cached) {
         const { data, timestamp } = JSON.parse(cached);
         if (Date.now() - timestamp < CACHE_TTL) {
-          renderRepos(container, data);
+          renderRepos(track, data);
           return;
         }
       }
@@ -93,32 +93,32 @@
 
       const repos = await res.json();
 
-      // Pick top 3 by star count
-      const top3 = repos
-        .sort(function (a, b) { return b.stargazers_count - a.stargazers_count; })
-        .slice(0, 3);
+      // Sort by most recently updated
+      repos.sort(function (a, b) {
+        return new Date(b.updated_at) - new Date(a.updated_at);
+      });
 
       // Cache the result
       sessionStorage.setItem(CACHE_KEY, JSON.stringify({
-        data: top3,
+        data: repos,
         timestamp: Date.now(),
       }));
 
-      renderRepos(container, top3);
+      renderRepos(track, repos);
     } catch (err) {
-      container.innerHTML =
+      track.innerHTML =
         '<p class="repo-error">No se pudieron cargar los repositorios</p>';
     }
   }
 
   /**
-   * @description Renders an array of repo objects as HTML cards.
-   * @param {HTMLElement} container - The `#github-repos` grid element.
-   * @param {Array<Object>} repos - Array of GitHub repo objects (max 3).
+   * @description Renders an array of repo objects as HTML cards inside the carousel track.
+   * @param {HTMLElement} track - The `.carousel-track` element.
+   * @param {Array<Object>} repos - Array of GitHub repo objects.
    */
-  function renderRepos(container, repos) {
+  function renderRepos(track, repos) {
     if (!repos || repos.length === 0) {
-      container.innerHTML =
+      track.innerHTML =
         '<p class="repo-error">No se encontraron repositorios públicos.</p>';
       return;
     }
@@ -144,7 +144,98 @@
       );
     }).join('');
 
-    container.innerHTML = html;
+    track.innerHTML = html;
+    initCarousel();
+
+    // Show repo counter
+    var counter = document.getElementById('gh-counter');
+    if (counter) {
+      counter.textContent = repos.length + ' repositorios públicos';
+    }
+  }
+
+  /**
+   * @description Initializes carousel navigation (prev/next buttons + dots).
+   * Calculates the number of pages based on visible cards and viewport width.
+   */
+  function initCarousel() {
+    const track = document.getElementById('github-repos');
+    const prevBtn = document.getElementById('gh-prev');
+    const nextBtn = document.getElementById('gh-next');
+    const dotsContainer = document.getElementById('gh-dots');
+    if (!track || !prevBtn || !nextBtn || !dotsContainer) return;
+
+    const cards = track.querySelectorAll('.github-repo-card');
+    if (cards.length === 0) return;
+
+    var currentPage = 0;
+
+    function getCardWidth() {
+      if (cards.length === 0) return 320;
+      var style = window.getComputedStyle(cards[0]);
+      return cards[0].offsetWidth + parseFloat(style.marginRight || 0) + 24; // gap
+    }
+
+    function getVisibleCards() {
+      var cardW = getCardWidth();
+      return Math.max(1, Math.floor(track.clientWidth / cardW));
+    }
+
+    function getTotalPages() {
+      var visible = getVisibleCards();
+      return Math.max(1, Math.ceil(cards.length / visible));
+    }
+
+    function buildDots() {
+      var total = getTotalPages();
+      dotsContainer.innerHTML = '';
+      for (var i = 0; i < total; i++) {
+        var dot = document.createElement('button');
+        dot.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Página ' + (i + 1));
+        dot.dataset.page = i;
+        dot.addEventListener('click', function () {
+          goToPage(parseInt(this.dataset.page));
+        });
+        dotsContainer.appendChild(dot);
+      }
+    }
+
+    function goToPage(page) {
+      var total = getTotalPages();
+      currentPage = Math.max(0, Math.min(page, total - 1));
+      var cardW = getCardWidth();
+      var visible = getVisibleCards();
+      track.scrollTo({ left: currentPage * visible * cardW, behavior: 'smooth' });
+      updateDots();
+    }
+
+    function updateDots() {
+      var dots = dotsContainer.querySelectorAll('.carousel-dot');
+      dots.forEach(function (d, i) {
+        d.classList.toggle('active', i === currentPage);
+      });
+    }
+
+    prevBtn.addEventListener('click', function () {
+      goToPage(currentPage - 1);
+    });
+
+    nextBtn.addEventListener('click', function () {
+      goToPage(currentPage + 1);
+    });
+
+    // Recalculate on resize
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(function () {
+        buildDots();
+        goToPage(0);
+      }, 200);
+    });
+
+    buildDots();
   }
 
   /**
@@ -196,15 +287,6 @@
       var link = e.target.closest('a[href^="#"]');
       if (!link) return;
 
-      var targetId = link.getAttribute('href').slice(1);
-      if (!targetId) return;
-
-      var target = document.getElementById(targetId);
-      if (!target) return;
-
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth' });
-
       // Close mobile menu if open
       var menu = document.querySelector('.nav-menu');
       var toggle = document.querySelector('.nav-toggle');
@@ -212,6 +294,7 @@
         menu.classList.remove('active');
         if (toggle) toggle.setAttribute('aria-expanded', 'false');
       }
+      // Smooth scroll is handled by CSS: html { scroll-behavior: smooth }
     });
   }
 

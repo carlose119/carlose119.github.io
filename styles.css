@@ -23,7 +23,7 @@
 
 /* Phase 1.2: Base Reset */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 body {
   font-family: var(--font-sans);
   font-size: clamp(1rem, 1.5vw, 1.125rem);
@@ -40,7 +40,7 @@ a:hover { color: var(--color-accent-hover); }
 img { max-width: 100%; height: auto; display: block; }
 ul { list-style: none; }
 .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--space-4); }
-.section { padding: var(--space-16) 0; }
+.section { padding: var(--space-16) 0; scroll-margin-top: 80px; }
 .section-title { text-align: center; margin-bottom: var(--space-12); }
 
 /* Phase 1.3: Navigation */
@@ -82,7 +82,14 @@ ul { list-style: none; }
 .hero { min-height: 100vh; display: flex; align-items: center; padding: var(--space-20) 0; }
 .hero-content { display: flex; flex-direction: column; align-items: flex-start; gap: var(--space-4); }
 .hero-greeting { font-family: var(--font-mono); font-size: 1rem; color: var(--color-accent); }
-.hero-name { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: var(--color-white); line-height: 1.1; }
+.hero-name { font-size: clamp(2.5rem, 8vw, 5rem); font-weight: 700; color: var(--color-white); line-height: 1.1; display: flex; align-items: center; gap: var(--space-6); flex-wrap: wrap; }
+.hero-avatar {
+  width: clamp(80px, 15vw, 140px);
+  height: clamp(80px, 15vw, 140px);
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--color-accent);
+}
 .hero-title { font-size: clamp(1.25rem, 4vw, 2rem); color: var(--color-text-secondary); }
 .hero-title .accent { color: var(--color-accent); }
 .hero-description { max-width: 600px; color: var(--color-text-secondary); font-size: 1.125rem; }
@@ -230,18 +237,83 @@ ul { list-style: none; }
 }
 .project-card.hidden { display: none; }
 
-/* Phase 4: GitHub Section */
-.github-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+/* Phase 4: GitHub Section — Carousel */
+.carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+.carousel-track {
+  display: flex;
   gap: var(--space-6);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  padding: var(--space-4) 0;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  flex-wrap: nowrap;
+  min-width: 0;
+}
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-btn {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-default);
+  z-index: 2;
+}
+.carousel-btn:hover {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-top: var(--space-4);
+}
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--color-border);
+  cursor: pointer;
+  transition: all var(--transition-default);
+}
+.carousel-dot.active {
+  background-color: var(--color-accent);
+  width: 24px;
+  border-radius: 4px;
+}
+.carousel-counter {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 0.8125rem;
+  margin-top: var(--space-2);
 }
 .github-repo-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
   background-color: var(--color-bg-secondary);
   border-radius: var(--border-radius);
   padding: var(--space-6);
   border: 1px solid var(--color-border);
   transition: transform var(--transition-default);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
 }
 .github-repo-card:hover { transform: translateY(-4px); }
 .github-repo-card h3 { color: var(--color-white); margin-bottom: var(--space-2); }
@@ -258,6 +330,24 @@ ul { list-style: none; }
   border-radius: 50%;
   display: inline-block;
 }
+.repo-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.repo-stars {
+  color: var(--color-accent);
+  font-size: 0.875rem;
+}
+.repo-description {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
 .loading-spinner {
   display: flex;
   flex-direction: column;
@@ -266,7 +356,7 @@ ul { list-style: none; }
   gap: var(--space-4);
   padding: var(--space-12) 0;
   color: var(--color-text-secondary);
-  grid-column: 1 / -1;
+  width: 100%;
 }
 .spinner {
   width: 40px;
@@ -328,6 +418,11 @@ ul { list-style: none; }
 }
 
 /* Phase 6: Responsive Media Queries */
+@media (max-width: 767px) {
+  .carousel-btn { width: 32px; height: 32px; }
+  .carousel-btn svg { width: 16px; height: 16px; }
+  .github-repo-card { flex: 0 0 280px; }
+}
 @media (min-width: 768px) {
   .nav-menu {
     display: flex;

@@ -37,7 +37,10 @@
         <div class="container">
             <div class="hero-content">
                 <p class="hero-greeting">Hola, soy</p>
-                <h1 class="hero-name">Carlos Carrillo</h1>
+                <h1 class="hero-name">
+                    <img src="carlos.jpg" alt="Carlos Carrillo" class="hero-avatar">
+                    Carlos Carrillo
+                </h1>
                 <h2 class="hero-title">Full Stack Developer <span class="accent">&</span> Operations</h2>
                 <p class="hero-description">
                     Desarrollador de software con mentalidad operativa. Combino código limpio con infraestructura sólida.
@@ -166,7 +169,7 @@
                 <!-- MG Motor Chile -->
                 <article class="featured-card">
                     <div class="featured-card-image">
-                        <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0afa?w=800&h=500&fit=crop" alt="MG Motor Chile" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&h=500&fit=crop" alt="MG Motor Chile" loading="lazy">
                     </div>
                     <div class="featured-card-content">
                         <div class="featured-card-header">
@@ -204,10 +207,68 @@
                 <button class="filter-btn" data-filter="php">PHP/Laravel</button>
                 <button class="filter-btn" data-filter="js">JS/React/Next</button>
                 <button class="filter-btn" data-filter="cms">CMS/WordPress</button>
+                <button class="filter-btn" data-filter="cakephp">CakePHP</button>
             </div>
 
             <!-- Projects Grid -->
             <div class="projects-grid">
+                <!-- Zolut (Destacado) -->
+                <article class="project-card" data-category="cms" data-stack="wordpress,nextjs">
+                    <div class="project-card-image">
+                        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=600&h=400&fit=crop" alt="Zolut" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <h3>Zolut</h3>
+                        <p>E-commerce de compra de listas escolares operando en Miami.</p>
+                        <div class="project-card-tags">
+                            <span class="tag">WordPress</span>
+                            <span class="tag">Next.js</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-context">Independiente</span>
+                            <a href="https://zolut.com" target="_blank" rel="noopener noreferrer" class="btn btn-small">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Distribución Dunlop Latam (Destacado) -->
+                <article class="project-card" data-category="dotnet" data-stack="dotnet-razor,devexpress">
+                    <div class="project-card-image">
+                        <img src="https://images.unsplash.com/photo-1565106430482-8f6e74349ca1?w=600&h=400&fit=crop" alt="Distribución Dunlop Latam" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <h3>Distribución Dunlop Latam</h3>
+                        <p>Aplicativo de compras B2B para distribuidores desarrollado bajo la firma de Somosforma.</p>
+                        <div class="project-card-tags">
+                            <span class="tag">.NET Razor Pages</span>
+                            <span class="tag">DevExpress</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-context">Somosforma</span>
+                            <a href="https://distribuidores.dunloplatam.com" target="_blank" rel="noopener noreferrer" class="btn btn-small">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- MG Motor Chile (Destacado) -->
+                <article class="project-card" data-category="php" data-stack="laravel">
+                    <div class="project-card-image">
+                        <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=600&h=400&fit=crop" alt="MG Motor Chile" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <h3>MG Motor Chile</h3>
+                        <p>Portal automotriz corporativo. Desarrollo de nuevas funcionalidades y optimizaciones.</p>
+                        <div class="project-card-tags">
+                            <span class="tag">Laravel</span>
+                            <span class="tag">PHP</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-context">Somosforma</span>
+                            <a href="https://mgmotor.cl" target="_blank" rel="noopener noreferrer" class="btn btn-small">Ver más</a>
+                        </div>
+                    </div>
+                </article>
+
                 <!-- CoopeCaja -->
                 <article class="project-card" data-category="dotnet" data-stack=".netmvc,node,minimalapi,devexpress">
                     <div class="project-card-image">
@@ -360,7 +421,7 @@
                 </article>
 
                 <!-- Toursnation -->
-                <article class="project-card" data-category="php" data-stack="cakephp">
+                <article class="project-card" data-category="cakephp" data-stack="cakephp">
                     <div class="project-card-image">
                         <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=600&h=400&fit=crop" alt="Toursnation" loading="lazy">
                     </div>
@@ -376,6 +437,26 @@
                         </div>
                     </div>
                 </article>
+
+                <!-- DACE Postgrado -->
+                <article class="project-card" data-category="php" data-stack="laravel">
+                    <div class="project-card-image">
+                        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&h=400&fit=crop" alt="DACE Postgrado UNERG" loading="lazy">
+                    </div>
+                    <div class="project-card-content">
+                        <h3>DACE Postgrado UNERG</h3>
+                        <p>Sitio web y sistema de admisión y control de estudios del área de postgrado de la Universidad Nacional Experimental de los Llanos Centrales Rómulo Gallegos.</p>
+                        <div class="project-card-tags">
+                            <span class="tag">Laravel</span>
+                            <span class="tag">Filament</span>
+                            <span class="tag">PHP</span>
+                        </div>
+                        <div class="project-card-footer">
+                            <span class="project-context">UNERG</span>
+                            <a href="https://dace-postgrado.miunerg.com/" target="_blank" rel="noopener noreferrer" class="btn btn-small">Ver más</a>
+                        </div>
+                    </div>
+                </article>
             </div>
         </div>
     </section>
@@ -384,13 +465,23 @@
     <section id="github" class="section github-section">
         <div class="container">
             <h2 class="section-title">Actividad en GitHub</h2>
-            <div class="github-grid" id="github-repos">
-                <!-- Dynamic content loaded via JavaScript -->
-                <div class="loading-spinner">
-                    <div class="spinner"></div>
-                    <p>Cargando repositorios...</p>
+            <div class="carousel-wrapper">
+                <button class="carousel-btn carousel-btn-prev" aria-label="Anterior" id="gh-prev">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <div class="carousel-track" id="github-repos">
+                    <!-- Dynamic content loaded via JavaScript -->
+                    <div class="loading-spinner">
+                        <div class="spinner"></div>
+                        <p>Cargando repositorios...</p>
+                    </div>
                 </div>
+                <button class="carousel-btn carousel-btn-next" aria-label="Siguiente" id="gh-next">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
             </div>
+            <div class="carousel-dots" id="gh-dots"></div>
+            <p class="carousel-counter" id="gh-counter"></p>
         </div>
     </section>
 
