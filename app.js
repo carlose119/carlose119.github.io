@@ -98,13 +98,15 @@
         return new Date(b.updated_at) - new Date(a.updated_at);
       });
 
+      const misRepos = repos.filter(repo => !repo.fork);//solo mis repos, no forks
+
       // Cache the result
       sessionStorage.setItem(CACHE_KEY, JSON.stringify({
-        data: repos,
+        data: misRepos,
         timestamp: Date.now(),
       }));
 
-      renderRepos(track, repos);
+      renderRepos(track, misRepos);
     } catch (err) {
       track.innerHTML =
         '<p class="repo-error">No se pudieron cargar los repositorios</p>';
