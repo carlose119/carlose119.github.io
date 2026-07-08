@@ -10,7 +10,7 @@
 
   /* ── Module Constants ────────────────────────────────────────────────── */
 
-  const GH_API = 'https://api.github.com/users/carlose119/repos?sort=updated&per_page=30';
+  const GH_API = 'https://api.github.com/users/carlose119/repos?sort=updated&per_page=1000';
   const CACHE_KEY = 'gh_repos_v2';
   const CACHE_TTL = 3600000; // 1 hour in ms
   const LANG_COLORS = {
