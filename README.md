@@ -66,6 +66,7 @@ carlose119/
 ├── img/            # Imágenes locales y favicon
 │   ├── app-citas-evanhub.webp
 │   ├── carlos.jpg
+│   ├── cerrojo-security-toolkit.svg
 │   ├── dace-postgrado-unerg.webp
 │   ├── dunlop-latam.webp
 │   ├── evanhub.webp
@@ -104,7 +105,7 @@ carlose119/
 - Stack tecnológico y enlace directo
 
 ### 4. Portafolio Completo (con Filtros)
-- 14 proyectos en grilla responsive
+- 15 proyectos en grilla responsive
 - 6 categorías de filtrado:
   - Todos
   - .NET
@@ -344,6 +345,7 @@ git push origin main
 | MG Uruguay | [mguruguay.com.uy](https://mguruguay.com.uy/) | Laravel | Somosforma |
 | Toursnation | [toursnation.com](http://www.toursnation.com/) | CakePHP | Independiente |
 | DACE Postgrado UNERG | [dace-postgrado.miunerg.com](https://dace-postgrado.miunerg.com/) | Laravel, Filament | UNERG |
+| Cerrojo Security Toolkit | [wordpress.org](https://wordpress.org/plugins/cerrojo-security-toolkit/) | WordPress, PHP | Independiente |
 
 ---
 
