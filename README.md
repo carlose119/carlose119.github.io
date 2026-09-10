@@ -64,19 +64,19 @@ carlose119/
 ├── styles.css      # Estilos CSS con dark mode (460 líneas)
 ├── app.js          # JavaScript vanilla ES6+ (309 líneas)
 ├── img/            # Imágenes locales y favicon
-│   ├── app-citas-evanhub.png
+│   ├── app-citas-evanhub.webp
 │   ├── carlos.jpg
-│   ├── dace-postgrado-unerg.png
-│   ├── dunlop-latam.png
-│   ├── evanhub.png
-│   ├── inspira.png
-│   ├── isinergia.png
-│   ├── mg-argentina.png
-│   ├── mg-motor-chile.png
-│   ├── mg-uruguay.png
-│   ├── sqm-corporativo.png
-│   ├── sqm-nutrition.png
-│   ├── zolut.png
+│   ├── dace-postgrado-unerg.webp
+│   ├── dunlop-latam.webp
+│   ├── evanhub.webp
+│   ├── inspira.webp
+│   ├── isinergia.webp
+│   ├── mg-argentina.webp
+│   ├── mg-motor-chile.webp
+│   ├── mg-uruguay.webp
+│   ├── sqm-corporativo.webp
+│   ├── sqm-nutrition.webp
+│   ├── zolut.webp
 │   └── favicon.ico
 ├── prd.md          # Product Requirement Document
 └── README.md       # Esta documentación
