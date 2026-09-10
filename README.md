@@ -63,7 +63,21 @@ carlose119/
 ├── index.html      # Estructura HTML5 semántica (629 líneas)
 ├── styles.css      # Estilos CSS con dark mode (460 líneas)
 ├── app.js          # JavaScript vanilla ES6+ (309 líneas)
-├── carlos.jpg      # Foto de perfil
+├── img/            # Imágenes locales y favicon
+│   ├── app-citas-evanhub.png
+│   ├── carlos.jpg
+│   ├── dace-postgrado-unerg.png
+│   ├── dunlop-latam.png
+│   ├── evanhub.png
+│   ├── inspira.png
+│   ├── isinergia.png
+│   ├── mg-argentina.png
+│   ├── mg-motor-chile.png
+│   ├── mg-uruguay.png
+│   ├── sqm-corporativo.png
+│   ├── sqm-nutrition.png
+│   ├── zolut.png
+│   └── favicon.ico
 ├── prd.md          # Product Requirement Document
 └── README.md       # Esta documentación
 ```

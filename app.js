@@ -54,8 +54,8 @@
       // Filter project cards
       const cards = document.querySelectorAll('.project-card');
       cards.forEach(function (card) {
-        const category = card.getAttribute('data-category');
-        const show = filter === 'all' || category === filter;
+        const categories = (card.getAttribute('data-category') || '').trim().split(/\s+/);
+        const show = filter === 'all' || categories.includes(filter);
         card.classList.toggle('hidden', !show);
         card.setAttribute('aria-hidden', String(!show));
       });
